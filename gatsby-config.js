@@ -5,7 +5,7 @@ const path = require('path')
 
 // SEO configuration
 const siteTitle = 'nightmare'
-const siteUrl = ''
+const siteUrl = 'https://nightmare.netlify.com/'
 const siteDescription = 'Nightmare'
 const siteKeywords = 'Gatsby, web'
 const siteThemeColor = '#000000'
