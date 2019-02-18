@@ -49,13 +49,12 @@ module.exports = {
         accessToken: process.env.PRISMIC_TOKEN,
       },
     },
-    // {
-    //   resolve: 'gatsby-plugin-google-analytics',
-    //   options: {
-    //     trackingId: gaId,
-    //     head: false // put GA in the <head> for optimal tracking
-    //   }
-    // },
+    {
+      resolve: 'gatsby-source-published-google-sheets',
+      options: {
+        sheetID: process.env.SHEET_ID,
+      },
+    },
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
@@ -72,9 +71,7 @@ module.exports = {
     'gatsby-plugin-robots-txt',
     'gatsby-plugin-sitemap',
     'gatsby-plugin-offline',
-    `gatsby-transformer-sharp`,
     'gatsby-plugin-webpack-size',
-    `gatsby-plugin-sharp`,
     `gatsby-plugin-netlify-cache`,
     {
       resolve: 'gatsby-plugin-netlify',

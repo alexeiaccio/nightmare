@@ -14,16 +14,17 @@ function IndexPage() {
         css={css`
           color: green;
         `}
-      >Poop</H1>
+      >
+        Poop
+      </H1>
     </Fragment>
   )
 }
 
 IndexPage.propTypes = {
   data: PropTypes.shape({
-    homepage: PropTypes.object.isRequired,
+    about: PropTypes.object.isRequired,
   }).isRequired,
 }
 
 export default IndexPage
-
