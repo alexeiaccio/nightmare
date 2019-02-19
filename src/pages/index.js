@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react'
-import PropTypes from 'prop-types'
 import { css } from '@emotion/core'
 import styled from '@emotion/styled'
 
@@ -10,7 +9,7 @@ const H1 = styled.div`
 `
 
 const videoWrapper = css`
-  ${tw(['bg-black', 'w-screen'])};
+  ${tw(['bg-black', 'relative', 'w-screen'])};
 `
 
 function IndexPage() {
@@ -28,12 +27,6 @@ function IndexPage() {
       </div>
     </Fragment>
   )
-}
-
-IndexPage.propTypes = {
-  data: PropTypes.shape({
-    about: PropTypes.object.isRequired,
-  }).isRequired,
 }
 
 export default IndexPage

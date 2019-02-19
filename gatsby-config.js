@@ -42,13 +42,13 @@ module.exports = {
     {
       resolve: `gatsby-plugin-emotion`,
     },
-    {
-      resolve: 'gatsby-source-prismic',
-      options: {
-        repositoryName: process.env.PRISMIC_API,
-        accessToken: process.env.PRISMIC_TOKEN,
-      },
-    },
+    // {
+    //   resolve: 'gatsby-source-prismic',
+    //   options: {
+    //     repositoryName: process.env.PRISMIC_API,
+    //     accessToken: process.env.PRISMIC_TOKEN,
+    //   },
+    // },
     {
       resolve: 'gatsby-source-published-google-sheets',
       options: {
