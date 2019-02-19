@@ -16,7 +16,7 @@ function Video({ rows }) {
     <Player
       playsInline
       autoPlay
-      src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+      src="https://275501.selcdn.ru/Video/upload/nightmare.mp4"
     >
       <ControlBar autoHide disableDefaultControls />
     </Player>
