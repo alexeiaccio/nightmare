@@ -1,28 +1,32 @@
 import React, { Fragment } from 'react'
-import { css } from '@emotion/core'
-import styled from '@emotion/styled'
+import { Global, css } from '@emotion/core'
 
 import Video from '../components/video'
 
-const H1 = styled.div`
-  color: red;
+const globalStyles = css`
+  * {
+    margin: 0;
+    padding: 0;
+  }
 `
 
-const videoWrapper = css`
-  ${tw(['bg-black', 'relative', 'w-screen'])};
+const wrapper = css`
+  ${tw([
+    'absolute',
+    'bg-black',
+    'flex',
+    'items-center',
+    'justify-center',
+    'overflow-hidden',
+    'pin',
+  ])};
 `
 
 function IndexPage() {
   return (
     <Fragment>
-      <H1
-        css={css`
-          color: green;
-        `}
-      >
-        Poop
-      </H1>
-      <div css={videoWrapper}>
+      <Global styles={globalStyles} />
+      <div css={wrapper}>
         <Video />
       </div>
     </Fragment>

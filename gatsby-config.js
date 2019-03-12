@@ -42,31 +42,24 @@ module.exports = {
     {
       resolve: `gatsby-plugin-emotion`,
     },
-    // {
-    //   resolve: 'gatsby-source-prismic',
-    //   options: {
-    //     repositoryName: process.env.PRISMIC_API,
-    //     accessToken: process.env.PRISMIC_TOKEN,
-    //   },
-    // },
     {
       resolve: 'gatsby-source-published-google-sheets',
       options: {
         sheetID: process.env.SHEET_ID,
       },
     },
-    {
-      resolve: 'gatsby-plugin-manifest',
-      options: {
-        name: siteTitle,
-        short_name: utilsTitleShort,
-        start_url: '/',
-        theme_color: siteThemeColor,
-        background_color: utilsBackgroundColor,
-        display: 'minimal-ui',
-        icon: utilsIcon, // This path is relative to the root of the site.
-      },
-    },
+    // {
+    //   resolve: 'gatsby-plugin-manifest',
+    //   options: {
+    //     name: siteTitle,
+    //     short_name: utilsTitleShort,
+    //     start_url: '/',
+    //     theme_color: siteThemeColor,
+    //     background_color: utilsBackgroundColor,
+    //     display: 'minimal-ui',
+    //     icon: utilsIcon, // This path is relative to the root of the site.
+    //   },
+    // },
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-robots-txt',
     'gatsby-plugin-sitemap',
