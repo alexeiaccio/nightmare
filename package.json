@@ -18,6 +18,21 @@
     "serve": "gatsby serve",
     "clean": "rimraf .cache public"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.{js,json,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
   "dependencies": {
     "@emotion/core": "^10.0.5",
     "@emotion/styled": "^10.0.5",

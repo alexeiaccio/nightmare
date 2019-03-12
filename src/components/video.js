@@ -1,9 +1,14 @@
-import React, { memo, Component, useRef } from 'react'
+import React, { memo, Component } from 'react'
 import PropTypes from 'prop-types'
 import { StaticQuery, graphql } from 'gatsby'
 import { propPathOr, mapProps, map, compose, assoc, reduce } from 'crocks'
 import { css } from '@emotion/core'
 import YouTube from 'react-youtube'
+import styled from '@emotion/styled'
+
+const Clicker = styled.div`
+  ${tw(['absolute', 'flex', 'flex-col', 'items-center', 'pin', 'text-white'])};
+`
 
 class Video extends Component {
   static propTypes = {
@@ -18,7 +23,7 @@ class Video extends Component {
       currentAction: null,
       paused: false,
       prevTime: null,
-      suspend: false,
+      prevKeyCode: null,
     }
   }
 
@@ -53,20 +58,17 @@ class Video extends Component {
     const roundedCurrentTime = Math.floor(playerCurrentTime)
 
     if (stateCurrentTime !== roundedCurrentTime) {
+      const { timeline } = this.props
       currentTime = roundedCurrentTime
-      const action = propPathOr(
-        null,
-        ['timeline', currentTime.toString()],
-        this.props
-      )
+      const action = propPathOr(null, [currentTime.toString()], timeline)
 
       if (action) {
         if ((action === 'click' || action === 'typing') && !paused) {
-          console.log('pause me')
-          target.pauseVideo()
           this.pause()
         }
-        if (action === 'idle' && paused) target.playVideo()
+        if (action === 'idle' && paused) {
+          this.play()
+        }
         if (currentAction !== action) {
           currentAction = action
         }
@@ -97,41 +99,16 @@ class Video extends Component {
     }
   }
 
-  handleLoadStart = () => {
-    console.log('handleLoadStart')
-  }
-
-  handleSuspend = () => {
-    this.setState({ suspend: true })
-  }
-
   handleCanPlay = () => {
     this.setState({ canPlay: true })
   }
 
-  handlePlay = ({ target }) => {
-    console.log('handlePlay')
+  handlePlay = () => {
     this.setState({ paused: false })
   }
 
-  handlePause = ({ target }) => {
-    console.log('handlePause')
+  handlePause = () => {
     this.setState({ paused: true })
-  }
-
-  handleLoadedData = () => {
-    console.log('handleLoadedData')
-  }
-
-  getProperties(video) {
-    if (!video) {
-      return null
-    }
-
-    return mediaProperties.reduce((properties, key) => {
-      properties[key] = video[key]
-      return properties
-    }, {})
   }
 
   togglePlay = () => {
@@ -147,25 +124,27 @@ class Video extends Component {
     e.preventDefault()
     const { canPlay, currentAction, paused } = this.state
     if (canPlay) {
+      this.toggleFullScreen()
       this.play()
       this.setState({ canPlay: false })
     } else if (currentAction === 'click' && paused) {
-      console.log('click')
       this.play()
     }
   }
 
   handleKey = e => {
     e.preventDefault()
-    const { currentAction, currentTime, paused } = this.state
-    if (currentAction === 'typing' && paused) {
-      console.log('keyup')
+    const { currentAction, currentTime, paused, prevKeyCode } = this.state
+    if (currentAction === 'typing' && e.keyCode !== prevKeyCode && paused) {
       this.play()
-      this.setState({ prevTime: Math.floor(currentTime) })
+      this.setState({
+        prevTime: Math.floor(currentTime),
+        prevKeyCode: e.keyCode,
+      })
     }
   }
 
-  _onReady = e => {
+  handleReady = e => {
     this.videoRef = e.target
     e.target.pauseVideo()
     this.setState({ canPlay: true })
@@ -177,8 +156,18 @@ class Video extends Component {
     }
   }
 
+  toggleFullScreen = () => {
+    if (document !== undefined) {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen()
+      } else if (document.exitFullscreen) {
+        document.exitFullscreen()
+      }
+    }
+  }
+
   render() {
-    const { canPlay } = this.state
+    const { canPlay, currentAction } = this.state
     const opts = {
       playerVars: {
         // https://developers.google.com/youtube/player_parameters
@@ -216,33 +205,48 @@ class Video extends Component {
               videoId="zHIeemAIRxM"
               className="video"
               opts={opts}
-              onReady={this._onReady}
+              onReady={this.handleReady}
               onPlay={this.handlePlay}
               onPause={this.handlePause}
               onStateChange={this.handleChange}
             />
           </div>
         </div>
-        <div
+        <Clicker
           css={css`
-            ${tw([
-              'absolute',
-              'bg-black',
-              'cursor-pointer',
-              'items-center',
-              'justify-center',
-              'opacity-50',
-              'pin',
-              'text-white',
-              'text-5xl',
-              'hover:opacity-75',
-            ])};
-            ${canPlay > 0 ? tw('flex') : tw('hidden')};
+            ${currentAction === 'click'
+              ? tw('cursor-pointer')
+              : tw('cursor-default')};
+            ${canPlay > 0
+              ? tw([
+                  'bg-black',
+                  'justify-center',
+                  'opacity-50',
+                  'hover:opacity-75',
+                ])
+              : tw(['bg-transparent', 'justify-end'])};
           `}
           onClick={this.handleClick}
         >
-          Start
-        </div>
+          <div
+            css={css`
+              ${canPlay > 0
+                ? tw(['cursor-pointer', 'block', 'text-5xl'])
+                : tw('hidden')};
+            `}
+          >
+            Start
+          </div>
+          {currentAction && (
+            <div
+              css={css`
+                ${tw(['bg-black', 'opacity-25', 'p-q12', 'text-xl'])};
+              `}
+            >
+              {currentAction}
+            </div>
+          )}
+        </Clicker>
       </>
     )
   }
