@@ -66,7 +66,7 @@ class Video extends Component {
         if ((action === 'click' || action === 'typing') && !paused) {
           this.pause()
         }
-        if (action === 'idle' && paused) {
+        if (action === 'wait' && paused) {
           this.play()
         }
         if (currentAction !== action) {
@@ -240,7 +240,15 @@ class Video extends Component {
           {currentAction && (
             <div
               css={css`
-                ${tw(['bg-black', 'opacity-25', 'p-q12', 'text-xl'])};
+                ${tw([
+                  'bg-black',
+                  'capitalize',
+                  'opacity-25',
+                  'py-q12',
+                  'text-center',
+                  'text-xl',
+                  'w-full',
+                ])};
               `}
             >
               {currentAction}
