@@ -156,6 +156,10 @@ class Video extends Component {
     }
   }
 
+  handleEnd = () => {
+    this.toggleFullScreen()
+  }
+
   toggleFullScreen = () => {
     if (document !== undefined) {
       if (!document.fullscreenElement) {
@@ -209,6 +213,7 @@ class Video extends Component {
               onPlay={this.handlePlay}
               onPause={this.handlePause}
               onStateChange={this.handleChange}
+              onEnd={this.handleEnd}
             />
           </div>
         </div>
@@ -243,11 +248,12 @@ class Video extends Component {
                 ${tw([
                   'bg-black',
                   'capitalize',
-                  'opacity-25',
-                  'py-q12',
+                  'mb-q12',
+                  'opacity-50',
+                  'p-q12',
+                  'rounded-lg',
                   'text-center',
                   'text-xl',
-                  'w-full',
                 ])};
               `}
             >
