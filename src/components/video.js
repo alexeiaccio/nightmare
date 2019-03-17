@@ -74,7 +74,7 @@ class Video extends Component {
         }
       }
 
-      if (prevTime) {
+      if ((action === 'clicking' || action === 'typing') && prevTime) {
         this.pause()
       }
 
@@ -122,13 +122,18 @@ class Video extends Component {
 
   handleClick = e => {
     e.preventDefault()
-    const { canPlay, currentAction, paused } = this.state
+    const { canPlay, currentAction, currentTime, paused } = this.state
     if (canPlay) {
       this.toggleFullScreen()
       this.play()
       this.setState({ canPlay: false })
     } else if (currentAction === 'click' && paused) {
       this.play()
+    } else if (currentAction === 'clicking' && paused) {
+      this.play()
+      this.setState({
+        prevTime: Math.floor(currentTime),
+      })
     }
   }
 
@@ -229,7 +234,7 @@ class Video extends Component {
                   'opacity-50',
                   'hover:opacity-75',
                 ])
-              : tw(['bg-transparent', 'justify-end'])};
+              : tw(['bg-transparent', 'justify-start'])};
           `}
           onClick={this.handleClick}
         >
@@ -248,7 +253,7 @@ class Video extends Component {
                 ${tw([
                   'bg-black',
                   'capitalize',
-                  'mb-q12',
+                  'mt-q12',
                   'opacity-50',
                   'p-q12',
                   'rounded-lg',
