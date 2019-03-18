@@ -93,7 +93,7 @@ class Video extends Component {
         }
       }
 
-      if (action !== 'wait' && prevTime) {
+      if (currentAction !== 'wait' && prevTime && !paused) {
         this.pause()
       }
 
