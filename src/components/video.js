@@ -10,6 +10,21 @@ const Clicker = styled.div`
   ${tw(['absolute', 'flex', 'flex-col', 'items-center', 'pin', 'text-white'])};
 `
 
+const Scroller = styled.div`
+  ${tw([
+    'absolute',
+    'flex',
+    'flex-col',
+    'items-center',
+    'oferflow-y-visible',
+    'h-full',
+    'pin-r',
+    'pin-t',
+    'text-white',
+    'w-full',
+  ])};
+`
+
 class Video extends Component {
   static propTypes = {
     timeline: PropTypes.objectOf(PropTypes.string).isRequired,
@@ -61,9 +76,13 @@ class Video extends Component {
       const { timeline } = this.props
       currentTime = roundedCurrentTime
       const action = propPathOr(null, [currentTime.toString()], timeline)
+      const isClick = action === 'click'
+      const isClicking = action === 'clicking'
+      const isScrolling = action === 'scrolling'
+      const isTyping = action === 'typing'
 
       if (action) {
-        if ((action === 'click' || action === 'typing') && !paused) {
+        if ((isClick || isClicking || isTyping || isScrolling) && !paused) {
           this.pause()
         }
         if (action === 'wait' && paused) {
@@ -74,7 +93,7 @@ class Video extends Component {
         }
       }
 
-      if ((action === 'clicking' || action === 'typing') && prevTime) {
+      if (action !== 'wait' && prevTime) {
         this.pause()
       }
 
@@ -145,6 +164,17 @@ class Video extends Component {
       this.setState({
         prevTime: Math.floor(currentTime),
         prevKeyCode: e.keyCode,
+      })
+    }
+  }
+
+  handleScroll = e => {
+    e.preventDefault()
+    const { currentAction, currentTime, paused } = this.state
+    if (currentAction === 'scrolling' && paused) {
+      this.play()
+      this.setState({
+        prevTime: Math.floor(currentTime),
       })
     }
   }
@@ -257,6 +287,7 @@ class Video extends Component {
                   'opacity-50',
                   'p-q12',
                   'rounded-lg',
+                  'select-none',
                   'text-center',
                   'text-xl',
                 ])};
@@ -266,6 +297,16 @@ class Video extends Component {
             </div>
           )}
         </Clicker>
+        {currentAction === 'scrolling' && (
+          <Scroller onWheel={this.handleScroll}>
+            <div
+              css={css`
+                height: 1000%;
+                width: 100%;
+              `}
+            />
+          </Scroller>
+        )}
       </>
     )
   }
