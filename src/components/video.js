@@ -181,6 +181,8 @@ class Video extends Component {
 
   handleReady = e => {
     this.videoRef = e.target
+    e.target.mute()
+    e.target.setPlaybackQuality('large')
     e.target.pauseVideo()
     this.setState({ canPlay: true })
   }
@@ -241,7 +243,7 @@ class Video extends Component {
             `}
           >
             <YouTube
-              videoId="zHIeemAIRxM"
+              videoId="ZlIyk1yeFV0"
               className="video"
               opts={opts}
               onReady={this.handleReady}

@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import { Global, css } from '@emotion/core'
 
+import Sound from '../components/sound'
 import Video from '../components/video'
 
 const globalStyles = css`
@@ -27,6 +28,7 @@ function IndexPage() {
     <Fragment>
       <Global styles={globalStyles} />
       <div css={wrapper}>
+        <Sound />
         <Video />
       </div>
     </Fragment>
