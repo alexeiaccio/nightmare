@@ -4,10 +4,11 @@ require('dotenv').config({
 const path = require('path')
 
 // SEO configuration
-const siteTitle = 'nightmare'
-const siteUrl = 'https://nightmare.netlify.com/'
-const siteDescription = 'Nightmare'
-const siteKeywords = 'Gatsby, web'
+const siteTitle = 'Nightmare / Beta'
+const siteUrl = 'https://nightmare.accio.pro/'
+const siteDescription =
+  'An interactive project that lives on the spectators computer screens and starts through their participation in a conditional game.'
+const siteKeywords = 'art, web, interactive'
 const siteThemeColor = '#000000'
 
 // Accounts & API keys

@@ -1,22 +1,15 @@
 // This does not support nested pages (level 2 and up)
 // If you're working with deeply nested pages, remove this or rework it.
 
-export default ({
-  pathname,
-  canonical,
-  siteUrl,
-  pageTitle,
-  siteTitle,
-  pageTitleFull,
-}) => {
-  const isSubPage = pageTitle && pathname !== '/'
+export default ({ pathname, canonical, siteUrl, siteTitle, pageTitleFull }) => {
+  const isSubPage = siteTitle && pathname !== '/'
 
   const schema = [
     {
       '@context': 'http://schema.org',
       '@type': 'WebSite',
       url: canonical,
-      name: pageTitle || siteTitle,
+      name: siteTitle,
       alternateName: pageTitleFull,
     },
   ]
@@ -39,7 +32,7 @@ export default ({
           position: 2,
           item: {
             '@id': canonical,
-            name: pageTitle,
+            name: siteTitle,
           },
         },
       ],

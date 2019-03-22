@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { graphql, Link } from 'gatsby'
 import { Global, css } from '@emotion/core'
 
+import Seo from '../components/seo'
 import Sound from '../components/sound'
 
 const globalStyles = css`
@@ -12,11 +13,12 @@ const globalStyles = css`
   }
 `
 
-function AboutPage({ data }) {
+function AboutPage({ data, location }) {
   const about = data.about.data
   return (
     <>
       <Global styles={globalStyles} />
+      <Seo pathname={location.pathname} />
       <div
         css={css`
           ${tw(['absolute', 'overflow-hidden', 'pin'])};
@@ -61,6 +63,7 @@ function AboutPage({ data }) {
 
 AboutPage.propTypes = {
   data: PropTypes.objectOf(PropTypes.any).isRequired,
+  location: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
 export default AboutPage

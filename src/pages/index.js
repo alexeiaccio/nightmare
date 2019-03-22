@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import { Global, css } from '@emotion/core'
 
+import Seo from '../components/seo'
 import Sound from '../components/sound'
 import Video from '../components/video'
 
@@ -29,6 +30,7 @@ function IndexPage({ location }) {
   return (
     <Fragment>
       <Global styles={globalStyles} />
+      <Seo pathname={location.pathname} />
       <div css={wrapper}>
         <Sound />
         <Video location={location} />

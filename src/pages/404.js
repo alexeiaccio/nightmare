@@ -1,14 +1,13 @@
-import React, { Fragment } from 'react'
+import React from 'react'
+import { Link } from 'gatsby'
 
 const NotFoundPage = () => (
-  <Fragment>
+  <>
     <h1>404 Page Not Found</h1>
-    <p>
-      Do not worry! Incorrect URLs will lead your users here when running in
-      production mode.
-    </p>
-    <i>You might want to customize this page...</i>
-  </Fragment>
+    <Link to={`/?again=${new Date()}`}>Again, please</Link>
+    &emsp;
+    <Link to="/about">What was it?</Link>
+  </>
 )
 
 export default NotFoundPage
