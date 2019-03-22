@@ -1,14 +1,14 @@
 Arguments: 
-  /Users/alexeiaccio/.nvm/versions/node/v10.10.0/bin/node /usr/local/Cellar/yarn/1.13.0/libexec/bin/yarn.js add react-youtube
+  /usr/local/Cellar/node/11.7.0/bin/node /usr/local/Cellar/yarn/1.13.0/libexec/bin/yarn.js add gatsby-source-prismic
 
 PATH: 
-  /Users/alexeiaccio/.nvm/versions/node/v10.10.0/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
+  /usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
 
 Yarn version: 
   1.13.0
 
 Node version: 
-  10.10.0
+  11.7.0
 
 Platform: 
   darwin x64
@@ -78,6 +78,7 @@ npm manifest:
       "react-dom": "^16.8.2",
       "react-helmet": "^5.2.0",
       "react-pose": "^4.0.4",
+      "react-youtube": "^7.9.0",
       "tailwindcss": "^0.7.3",
       "uuid": "^3.3.2",
       "video-react": "^0.13.2"
@@ -7189,6 +7190,11 @@ Lockfile:
       pify "^3.0.0"
       strip-bom "^3.0.0"
   
+  load-script@^1.0.0:
+    version "1.0.0"
+    resolved "https://registry.yarnpkg.com/load-script/-/load-script-1.0.0.tgz#0491939e0bee5643ee494a7e3da3d2bac70c6ca4"
+    integrity sha1-BJGTngvuVkPuSUp+PaPSuscMbKQ=
+  
   loader-fs-cache@^1.0.0:
     version "1.0.1"
     resolved "https://registry.yarnpkg.com/loader-fs-cache/-/loader-fs-cache-1.0.1.tgz#56e0bf08bd9708b26a765b68509840c8dec9fdbc"
@@ -9391,7 +9397,7 @@ Lockfile:
     dependencies:
       asap "~2.0.3"
   
-  prop-types@^15.5.4, prop-types@^15.5.8, prop-types@^15.6.1, prop-types@^15.6.2:
+  prop-types@^15.5.3, prop-types@^15.5.4, prop-types@^15.5.8, prop-types@^15.6.1, prop-types@^15.6.2:
     version "15.7.2"
     resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
     integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -9663,6 +9669,15 @@ Lockfile:
     dependencies:
       exenv "^1.2.1"
       shallowequal "^1.0.1"
+  
+  react-youtube@^7.9.0:
+    version "7.9.0"
+    resolved "https://registry.yarnpkg.com/react-youtube/-/react-youtube-7.9.0.tgz#cf513c253581e1e45aa412a77d03420dfd7f7ba7"
+    integrity sha512-2+nBF4qP8nStYEILIO1/SylKOCnnJUxuZm+qCeWA0eeZxnWZIIixfAeAqbzblwx5L1n/26ACocy3epm9Glox8w==
+    dependencies:
+      fast-deep-equal "^2.0.1"
+      prop-types "^15.5.3"
+      youtube-player "^5.5.1"
   
   react@^16.8.2:
     version "16.8.2"
@@ -10422,6 +10437,11 @@ Lockfile:
     integrity sha1-pNprY1/8zMoz9w0Xy5JZLeleVXo=
     dependencies:
       is-arrayish "^0.3.1"
+  
+  sister@^3.0.0:
+    version "3.0.1"
+    resolved "https://registry.yarnpkg.com/sister/-/sister-3.0.1.tgz#a36ba6a1d1e46415ba16cb4ecefe14cbd8d82d1f"
+    integrity sha512-aG41gNRHRRxPq52MpX4vtm9tapnr6ENmHUx8LMAJWCOplEMwXzh/dp5WIo52Wl8Zlc/VUyHLJ2snX0ck+Nma9g==
   
   sitemap@^1.12.0:
     version "1.13.0"
@@ -12300,6 +12320,15 @@ Lockfile:
     version "0.1.2"
     resolved "https://registry.yarnpkg.com/yeast/-/yeast-0.1.2.tgz#008e06d8094320c372dbc2f8ed76a0ca6c8ac419"
     integrity sha1-AI4G2AlDIMNy28L47XagymyKxBk=
+  
+  youtube-player@^5.5.1:
+    version "5.5.2"
+    resolved "https://registry.yarnpkg.com/youtube-player/-/youtube-player-5.5.2.tgz#052b86b1eabe21ff331095ffffeae285fa7f7cb5"
+    integrity sha512-ZGtsemSpXnDky2AUYWgxjaopgB+shFHgXVpiJFeNB5nWEugpW1KWYDaHKuLqh2b67r24GtP6HoSW5swvf0fFIQ==
+    dependencies:
+      debug "^2.6.6"
+      load-script "^1.0.0"
+      sister "^3.0.0"
   
   yurnalist@^1.0.2:
     version "1.0.5"

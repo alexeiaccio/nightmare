@@ -24,21 +24,30 @@ function Sound() {
   return (
     <div
       css={css`
-        &,
-        & .video,
-        & iframe {
-          ${tw(['absolute', 'h-full', 'pin-l', 'pin-t', 'w-full'])};
-          pointer-events: none;
-          z-index: -1;
-        }
+        ${tw(['absolute', 'pin-l', 'w-full'])};
+        pointer-events: none;
+        height: 300%;
+        top: -100%;
       `}
     >
-      <YouTube
-        videoId="nxEpuDo5s3o"
-        className="video"
-        opts={opts}
-        onReady={handleReady}
-      />
+      <div
+        css={css`
+          &,
+          & .video,
+          & iframe {
+            ${tw(['absolute', 'h-full', 'pin-l', 'pin-t', 'w-full'])};
+            pointer-events: none;
+            z-index: -1;
+          }
+        `}
+      >
+        <YouTube
+          videoId="nxEpuDo5s3o"
+          className="video"
+          opts={opts}
+          onReady={handleReady}
+        />
+      </div>
     </div>
   )
 }

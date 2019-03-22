@@ -1,11 +1,13 @@
 import React, { Fragment } from 'react'
+import PropTypes from 'prop-types'
+
 import { Global, css } from '@emotion/core'
 
 import Sound from '../components/sound'
 import Video from '../components/video'
 
 const globalStyles = css`
-  * {
+  body {
     margin: 0;
     padding: 0;
   }
@@ -23,16 +25,20 @@ const wrapper = css`
   ])};
 `
 
-function IndexPage() {
+function IndexPage({ location }) {
   return (
     <Fragment>
       <Global styles={globalStyles} />
       <div css={wrapper}>
         <Sound />
-        <Video />
+        <Video location={location} />
       </div>
     </Fragment>
   )
+}
+
+IndexPage.propTypes = {
+  location: PropTypes.objectOf(PropTypes.any).isRequired,
 }
 
 export default IndexPage

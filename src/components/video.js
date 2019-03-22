@@ -6,6 +6,8 @@ import { css } from '@emotion/core'
 import YouTube from 'react-youtube'
 import styled from '@emotion/styled'
 
+import Congrats from './congrats'
+
 const Clicker = styled.div`
   ${tw(['absolute', 'flex', 'flex-col', 'items-center', 'pin', 'text-white'])};
 `
@@ -28,6 +30,7 @@ const Scroller = styled.div`
 class Video extends Component {
   static propTypes = {
     timeline: PropTypes.objectOf(PropTypes.string).isRequired,
+    location: PropTypes.objectOf(PropTypes.any).isRequired,
   }
 
   constructor() {
@@ -35,6 +38,7 @@ class Video extends Component {
     this.videoRef = null
     this.state = {
       canPlay: null,
+      congrats: false,
       currentAction: null,
       paused: false,
       prevTime: null,
@@ -45,6 +49,16 @@ class Video extends Component {
   componentDidMount() {
     if (document !== undefined) {
       document.addEventListener('keyup', this.handleKey)
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { location } = this.props
+    if (nextProps.location !== location) {
+      this.setState({
+        canPlay: true,
+        congrats: false,
+      })
     }
   }
 
@@ -192,8 +206,10 @@ class Video extends Component {
     }
   }
 
-  handleEnd = () => {
+  handleEnd = e => {
     this.toggleFullScreen()
+    e.target.pauseVideo()
+    this.setState({ congrats: true })
   }
 
   toggleFullScreen = () => {
@@ -207,17 +223,18 @@ class Video extends Component {
   }
 
   render() {
-    const { canPlay, currentAction } = this.state
+    const { canPlay, congrats, currentAction } = this.state
     const opts = {
       playerVars: {
         // https://developers.google.com/youtube/player_parameters
         autoplay: 1,
         disablekb: 1,
-        // controls: 0,
+        controls: 0,
         loop: 1,
         version: 3,
         showinfo: 0,
         rel: 0,
+        playlist: 'ckWg2SSmP4A',
       },
     }
 
@@ -308,12 +325,13 @@ class Video extends Component {
             />
           </Scroller>
         )}
+        {congrats && <Congrats />}
       </>
     )
   }
 }
 
-function WithStaticQuery() {
+function WithStaticQuery(props) {
   return (
     <StaticQuery
       query={graphql`
@@ -339,7 +357,7 @@ function WithStaticQuery() {
           map(propPathOr({}, ['node'])),
           propPathOr([], ['edges'])
         )(rows)
-        return <Video timeline={timeline} />
+        return <Video {...props} timeline={timeline} />
       }}
     />
   )
