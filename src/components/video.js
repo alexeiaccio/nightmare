@@ -7,6 +7,7 @@ import YouTube from 'react-youtube'
 import styled from '@emotion/styled'
 
 import Congrats from './congrats'
+import Typper from './typper'
 
 const Clicker = styled.div`
   ${tw(['absolute', 'flex', 'flex-col', 'items-center', 'pin', 'text-white'])};
@@ -43,12 +44,7 @@ class Video extends Component {
       paused: false,
       prevTime: null,
       prevKeyCode: null,
-    }
-  }
-
-  componentDidMount() {
-    if (document !== undefined) {
-      document.addEventListener('keyup', this.handleKey)
+      result: [],
     }
   }
 
@@ -65,12 +61,6 @@ class Video extends Component {
   shouldComponentUpdate(_, prevState) {
     if (prevState !== this.state) return true
     return false
-  }
-
-  componentWillUnmount() {
-    if (document !== undefined) {
-      document.removeEventListener('keyup', this.handleKey)
-    }
   }
 
   handleStateChange = ({ target }) => {
@@ -172,12 +162,20 @@ class Video extends Component {
 
   handleKey = e => {
     e.preventDefault()
-    const { currentAction, currentTime, paused, prevKeyCode } = this.state
+    const {
+      currentAction,
+      currentTime,
+      paused,
+      prevKeyCode,
+      result,
+    } = this.state
+
     if (currentAction === 'typing' && e.keyCode !== prevKeyCode && paused) {
       this.play()
       this.setState({
         prevTime: Math.floor(currentTime),
         prevKeyCode: e.keyCode,
+        result: result.concat([String.fromCharCode(e.keyCode)]),
       })
     }
   }
@@ -223,7 +221,7 @@ class Video extends Component {
   }
 
   render() {
-    const { canPlay, congrats, currentAction } = this.state
+    const { canPlay, congrats, currentAction, result } = this.state
     const opts = {
       playerVars: {
         // https://developers.google.com/youtube/player_parameters
@@ -234,7 +232,7 @@ class Video extends Component {
         version: 3,
         showinfo: 0,
         rel: 0,
-        origin: 'https://nightmare.accio.pro',
+        // origin: 'https://nightmare.accio.pro',
         playlist: 'ckWg2SSmP4A',
       },
     }
@@ -316,6 +314,7 @@ class Video extends Component {
             </div>
           )}
         </Clicker>
+        {currentAction === 'typing' && <Typper onKeyEvent={this.handleKey} />}
         {currentAction === 'scrolling' && (
           <Scroller onWheel={this.handleScroll}>
             <div
@@ -326,7 +325,7 @@ class Video extends Component {
             />
           </Scroller>
         )}
-        {congrats && <Congrats />}
+        {congrats && <Congrats result={result} />}
       </>
     )
   }

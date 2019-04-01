@@ -1,10 +1,11 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { useWindowSize } from 'react-use'
 import Confetti from 'react-confetti'
 import { css } from '@emotion/core'
 import { Link } from 'gatsby'
 
-function Congrats() {
+function Congrats({ result }) {
   const { width, height } = useWindowSize()
 
   return (
@@ -53,6 +54,10 @@ function Congrats() {
           `}
         >
           <h1>Congrats!</h1>
+          <p>
+            {"You've typed: "}
+            <b>{result.join('')}</b>
+          </p>
           <Link to={`/?again=${new Date()}`}>Again, please</Link>
           &emsp;
           <Link to="/about">What was it?</Link>
@@ -60,6 +65,10 @@ function Congrats() {
       </div>
     </>
   )
+}
+
+Congrats.propTypes = {
+  result: PropTypes.arrayOf(PropTypes.string).isRequired,
 }
 
 export default Congrats
