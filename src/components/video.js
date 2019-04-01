@@ -232,7 +232,7 @@ class Video extends Component {
         version: 3,
         showinfo: 0,
         rel: 0,
-        // origin: 'https://nightmare.accio.pro',
+        origin: 'https://nightmare.accio.pro',
         playlist: 'ckWg2SSmP4A',
       },
     }
